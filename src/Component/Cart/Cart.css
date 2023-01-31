@@ -1,0 +1,22 @@
+
+#cart-btn{
+   border: 2px solid rgb(16, 174, 223); 
+   height: 2rem;
+   width: 3.2rem;
+   background-color: transparent;
+   color: white;
+   text-align: center;
+   margin-top:0.5rem ;
+   border-radius: 10px;
+}
+#cart-btn:hover{
+    background-color: rgb(16, 174, 223);
+    color: white;
+    text-align: center;
+ }
+#counter{
+    position: relative;
+    color: rgb(16, 174, 223);
+    font-size: larger;
+    top: -0.8rem;
+}
