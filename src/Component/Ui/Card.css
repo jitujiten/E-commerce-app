@@ -9,10 +9,7 @@
 .title {
   font-size: 30px;
 }
-.image {
-  width: 50%;
-  background-size: cover;
-}
+
 #price{
     font-weight: 500;
 }

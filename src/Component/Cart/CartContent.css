@@ -1,0 +1,26 @@
+.head{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-weight: 800;
+   font-family:cursive;
+   
+}
+
+#remove{
+  position: relative;
+  right: -15rem;  
+}
+.cart{
+  display: flex;  
+  justify-content: space-evenly;
+  font-family: 'Times New Roman', Times, serif;
+}
+.bordera{
+    border-bottom: 1px solid black;
+}
+.cartitem{
+    display: flex;  
+    flex-direction: row;
+    justify-content: space-evenly;   
+}

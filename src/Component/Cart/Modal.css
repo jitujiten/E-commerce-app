@@ -1,0 +1,12 @@
+.cntain{
+ border:1px solid rgb(200, 55, 52);
+ background-color: white;  
+ height: 100%;
+ position: fixed;
+ z-index: 20;
+ right: 0.31rem;
+ top:4rem;
+ padding-top: 1%;
+border-radius: 20px;
+box-shadow: 1px 0px 10px 10px rgb(83, 78, 78);
+}

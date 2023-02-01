@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import Cart from "../Cart/Cart";
+import Cartbutton from "./Cartbutton";
 
 const Header = (props) => {
   return (
@@ -20,7 +20,7 @@ const Header = (props) => {
           </button>
         </div>
         <div className="header-right">
-          <Cart />
+          <Cartbutton onshowing={props.onshow} />
         </div>
         </div>
       </div>
