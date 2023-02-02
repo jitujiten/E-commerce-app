@@ -16,7 +16,7 @@
 .btncart{
     display: flex;
     flex-direction: row;
-    gap: 8rem;
+    gap: 5rem;
     margin-top: 2%;
 }
 .btnofcart{
@@ -28,4 +28,9 @@
 }
 .btnofcart:hover{
     background-color: rgb(4, 150, 240); 
+   }
+
+   .for{
+    display:flex;
+    gap: 3px;
    }

@@ -1,7 +1,10 @@
 import React from "react";
 import "./CartItem.css";
 
+
 const CartItem = (props) => {
+
+
   return (
     <div className="row">
       <div className="col-10">
@@ -13,9 +16,9 @@ const CartItem = (props) => {
           <h6 className="rs">Rs/{props.price}</h6>
           <div className="quantity">
             <p id="quan" className="btn btn-outline-info">
-              1
+              {props.amount}
             </p>
-            <button onClick={props.onremoving}
+            <button onClick={props.onRemove}
              className="btn btn-danger">REMOVE</button>
           </div>
         </div>
