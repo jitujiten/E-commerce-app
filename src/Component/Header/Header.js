@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import React from "react";
 import "./Header.css";
 import Cartbutton from "./Cartbutton";
@@ -9,15 +10,15 @@ const Header = (props) => {
         <div id="header">
         <div 
         className="header-left">
-          <button id="btn" className="btn btn-link">
+          <NavLink id="btn" className="btn btn-link" to="/home" >
             HOME
-          </button>
-          <button id="btn" className="btn btn-link">
+          </NavLink>
+          <NavLink id="btn" className="btn btn-link"  to="/store" >
             STORE
-          </button>
-          <button id="btn" className="btn btn-link">
+          </NavLink>
+          <NavLink id="btn" className="btn btn-link" to="/about">
             ABOUT
-          </button>
+          </NavLink>
         </div>
         <div className="header-right">
           <Cartbutton onshowing={props.onshow} />

@@ -1,29 +1,40 @@
-import React,{useState} from "react";
+import { Route } from "react-router-dom";
+import React, { useState } from "react";
 import Header from "./Component/Header/Header";
 import Brand from "./Component/Brand/Brand";
 import StoreItem from "./Component/Store/Store";
 import CartContent from "./Component/Cart/CartContent";
 import CartProvider from "./Component/Context/CartProvider";
+import Fotter from "./Component/Fotter/Fotter";
+import About from "./Component/About/About";
 
 function App() {
+  const [cartdiaplay, setcart] = useState(false);
 
-  const [cartdiaplay,setcart]=useState(false)
-
-  const cartbuttonhandler=()=>{
+  const cartbuttonhandler = () => {
     setcart(true);
-  }
-  const cartclosebuttonhandler=()=>{
+  };
+  const cartclosebuttonhandler = () => {
     setcart(false);
-  }
+  };
 
+  return (
+    <CartProvider>
+      <div className="container-fluid">
+        <Header onshow={cartbuttonhandler} />
+        <Brand />
+        {cartdiaplay && <CartContent onremove={cartclosebuttonhandler} />}
 
-  return (<CartProvider>
-    <div className="container-fluid">
-      <Header onshow={cartbuttonhandler}/>
-      <Brand/>
-      {cartdiaplay && <CartContent onremove={cartclosebuttonhandler}/>}
-      <StoreItem/>
-    </div>
+        <Route path="/store">
+          <StoreItem />
+        </Route>
+
+        <Route path="/about">
+          <About />
+        </Route>
+
+        <Fotter />
+      </div>
     </CartProvider>
   );
 }
