@@ -34,3 +34,20 @@
     display:flex;
     gap: 3px;
    }
+#wrapper{
+  overflow: hidden;
+  width: 45%;
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+  .images{
+    width: 100%;
+    background-size: cover;
+    transition: all 0.7s ease-in-out;
+  }
+  .images:hover{
+   transform: scale(1.4);
+  }

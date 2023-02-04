@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route,Redirect } from "react-router-dom";
 import React, { useState } from "react";
 import Header from "./Component/Header/Header";
 import Brand from "./Component/Brand/Brand";
@@ -7,6 +7,7 @@ import CartContent from "./Component/Cart/CartContent";
 import CartProvider from "./Component/Context/CartProvider";
 import Fotter from "./Component/Fotter/Fotter";
 import About from "./Component/About/About";
+import Home from "./Component/Home/Home";
 
 function App() {
   const [cartdiaplay, setcart] = useState(false);
@@ -24,6 +25,14 @@ function App() {
         <Header onshow={cartbuttonhandler} />
         <Brand />
         {cartdiaplay && <CartContent onremove={cartclosebuttonhandler} />}
+       
+        <Route path="/" exact>
+          <Redirect to="/store" />
+        </Route>
+
+        <Route path="/home">
+          <Home/>
+        </Route>
 
         <Route path="/store">
           <StoreItem />

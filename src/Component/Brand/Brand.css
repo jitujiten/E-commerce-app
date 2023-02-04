@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 3%;
-    margin-top: 0.5%;
+    margin-top: 1.9%;
     border-top: 2px solid white;
     width: 101.8%;
     margin-left: -1%;
@@ -13,4 +13,5 @@
     font-size: 100px;
     font-weight: 510;
     font-family:Georgia, 'Times New Roman', Times, serif;
+    padding-top: 1rem;
 }

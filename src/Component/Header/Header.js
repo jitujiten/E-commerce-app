@@ -6,14 +6,14 @@ import Cartbutton from "./Cartbutton";
 const Header = (props) => {
   return (
     <div className="row">
-      <div  className="col-12 " >
+      <div  className="col-12" >
         <div id="header">
         <div 
         className="header-left">
           <NavLink id="btn" className="btn btn-link" to="/home" >
             HOME
           </NavLink>
-          <NavLink id="btn" className="btn btn-link"  to="/store" >
+          <NavLink  id="btn" className="btn btn-link" to="/store" >
             STORE
           </NavLink>
           <NavLink id="btn" className="btn btn-link" to="/about">

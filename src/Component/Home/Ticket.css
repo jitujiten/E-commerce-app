@@ -1,0 +1,20 @@
+.but{
+background-color: rgb(27, 197, 216); 
+ color: white; 
+ border: none;
+ height: 2rem;
+ font-weight: 500;
+ border-radius: 5px;
+}
+#lis{
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+}
+#dat{
+  font-weight: 500;  
+}
+.font{
+    font-weight: 400;
+    color: rgb(103, 107, 110);
+}

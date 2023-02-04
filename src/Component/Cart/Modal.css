@@ -1,7 +1,7 @@
 .cntain{
  border:1px solid rgb(200, 55, 52);
  background-color: white;  
- max-height: 90%;
+ max-height: 95%;
  overflow: scroll;
  position: fixed;
  z-index: 20;

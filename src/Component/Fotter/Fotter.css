@@ -19,3 +19,9 @@
 #face{
   padding-left: 2rem;
 }
+.anker{
+  transition: all 0.4s ease-in-out;
+}
+.anker:hover{
+  transform: scale(1.2);
+}

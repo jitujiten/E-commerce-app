@@ -28,7 +28,9 @@ const ctx=useContext(CartContext);
   return (
     <div className="card">
       <h2 className="title">{props.title}</h2>
-      <img className="img-fluid w-50" src={props.imageUrl} alt="color" />
+      <div id="wrapper">
+      <img className="images" src={props.imageUrl} alt="color" />
+      </div>
       <div className="btncart">
         <p id="price">Rs/-{props.price}</p>
         <form className="for" onSubmit={addtocarthandler}>

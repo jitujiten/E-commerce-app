@@ -1,8 +1,8 @@
 import React from "react";
 import "./Fotter.css";
-import youtube from "../../Component/Images/youtube-logo-red-hd-13.png"
-import spotify from "../../Component/Images/logo-music-player-spotify-brand-10.png"
-import facebook from "../../Component/Images/facebook-icon-vectors-3.jpg"
+import youtube from "../../Component/Images/youtube-logo-red-hd-13.png";
+import spotify from "../../Component/Images/logo-music-player-spotify-brand-10.png";
+import facebook from "../../Component/Images/facebook-icon-vectors-3.jpg";
 
 const Fotter = (props) => {
   return (
@@ -17,6 +17,7 @@ const Fotter = (props) => {
               rel="noopener noreferrer"
             >
               <img
+                className="anker"
                 src={youtube}
                 alt="YouTube logo"
                 height="100"
@@ -29,18 +30,21 @@ const Fotter = (props) => {
               rel="noopener noreferrer"
             >
               <img
+                className="anker"
                 src={spotify}
                 alt="Spotify logo"
                 height="45"
                 width="50"
               />
             </a>
-            <a id="face"
+            <a
+              id="face"
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img
+                className="anker"
                 src={facebook}
                 alt="Facebook logo"
                 height="45"
