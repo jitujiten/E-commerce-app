@@ -1,0 +1,7 @@
+.heading{
+ font-weight: 700;  
+}
+#submitbtn:hover{
+    border: 2px solid red;
+    background-color: rgb(24, 218, 214);;
+}
