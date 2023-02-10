@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import "./Card.css";
 import Input from "./Input";
 import React,{useRef,useContext} from "react";
-import CartContext from "../Context/Cart-Context";
+import CartContext from "../Context/Cart-context/Cart-Context";
 
 
 const Card = (props) => {

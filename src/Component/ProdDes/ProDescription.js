@@ -1,7 +1,7 @@
 import "./ProDes.css";
 import Input from "../Ui/Input";
 import React, { useRef, useContext } from "react";
-import CartContext from "../Context/Cart-Context";
+import CartContext from "../Context/Cart-context/Cart-Context";
 
 const ProDescription = (props) => {
   const cartref = useRef();
