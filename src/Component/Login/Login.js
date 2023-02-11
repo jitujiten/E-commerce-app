@@ -46,7 +46,7 @@ const LogIn = () => {
             "Content-Type": "application/json",
           },
         }
-      ).then((res) => {
+      ).then(res => {
         setIsLoading(false);
         if (res.ok) {
           emailItnputRef.current.value="";
@@ -63,7 +63,12 @@ const LogIn = () => {
         }
       }).then(data=>{
          ctx.Login(data.idToken);
+         localStorage.setItem("tokenid",data.idToken)
          history.replace("/")
+         setTimeout(()=>{
+          localStorage.removeItem("tokenid");
+          console.log("logedout with timer")
+         },300000)
       }).catch(err=>{
         alert(err.message);
       })

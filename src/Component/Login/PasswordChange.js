@@ -30,6 +30,8 @@ const Passwordchanger = () => {
       }
     ).then((res) => {
       history.replace("/");
+      localStorage.removeItem("tokenid");
+      ctx.Logout();
     });
   };
 

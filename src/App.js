@@ -20,7 +20,7 @@ function App() {
   const [cartdiaplay, setcart] = useState(false);
 
   const ctx = useContext(AuthContext);
-  const isLoggedIn = ctx.isLoggedIn;
+  const isLoggedIn = ctx.isLoggedIn ||localStorage.getItem("tokenid");
 
   const cartbuttonhandler = () => {
     setcart(true);

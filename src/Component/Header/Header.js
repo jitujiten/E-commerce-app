@@ -10,13 +10,13 @@ const ctx=useContext(AuthContext);
 const history=useHistory();
 const logedouthandler=()=>{
   ctx.Logout();
-  history.replace('/')
+  localStorage.removeItem("tokenid");
 }
 
 
   return (
     <div className="row">
-      <div className="col-12">
+      <div className="col-12-md">
         <div id="header">
           <div className="header-left">
             <NavLink id="btn" className="btn btn-link" to="/home">
@@ -45,3 +45,5 @@ const logedouthandler=()=>{
 };
 
 export default Header;
+
+
