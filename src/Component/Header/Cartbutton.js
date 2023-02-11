@@ -1,14 +1,33 @@
-import React,{useContext} from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import "./Cart.css";
-import CartContext from "../Context/Cart-context/Cart-Context";
+
+
+
+
 
 const Cartbutton = (props) => {
 
-const ctx=useContext(CartContext);
+  const [displaynumberofitem, setnumberofitem] = useState(0);
 
-const numberofitemincart=ctx.items.reduce((prvdata,item)=>{
-  return prvdata+item.amount
-},0)
+
+  const useremailid = localStorage.getItem("emailid");
+  const replacedEmailId = useremailid
+    .replace("@", "")
+    .replace(".", "")
+    .replace("/", "");
+
+    async function fetchData(){
+      const res = await axios.get(
+        `https://crudcrud.com/api/2710781aab9a431cbf133dfe6de42692/cart${replacedEmailId}`
+      );
+    
+      const numberofitem = res.data.reduce((prvdata, item) => {
+        return prvdata + item.amount;
+      }, 0);
+      setnumberofitem(numberofitem);
+    };
+    fetchData();
 
   return (
     <div className="row">
@@ -16,7 +35,7 @@ const numberofitemincart=ctx.items.reduce((prvdata,item)=>{
         <button onClick={props.onshowing} id="cart-btn">
           cart
         </button>
-        <span id="counter">{numberofitemincart}</span>
+        <span id="counter">{displaynumberofitem}</span>
       </div>
     </div>
   );

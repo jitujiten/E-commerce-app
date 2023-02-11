@@ -64,9 +64,11 @@ const LogIn = () => {
       }).then(data=>{
          ctx.Login(data.idToken);
          localStorage.setItem("tokenid",data.idToken)
+         localStorage.setItem("emailid",data.email)
          history.replace("/")
          setTimeout(()=>{
           localStorage.removeItem("tokenid");
+          localStorage.removeItem("emailid");
           console.log("logedout with timer")
          },300000)
       }).catch(err=>{
