@@ -1,5 +1,6 @@
-import React,{useReducer} from "react";
+import React, { useReducer } from "react";
 import CartContext from "./Cart-Context";
+import axios from "axios";
 
 export const productsArr = [
   {
@@ -36,79 +37,156 @@ export const productsArr = [
 ];
 
 
+var useremailid = "jsahu5425@gmail.com";
 
-
-const defaultcart={
-   items:[],
-   TotalAmount:0 
+if (localStorage.getItem("emailid") === null) {
+  useremailid = "jsahu5425@gmail.com";
+} else {
+  var emailid=localStorage.getItem("emailid");
+  useremailid = emailid;
 }
 
-const cartreducer=(state,action)=>{
-    if(action.type==="ADD"){
+const replacedEmailId = useremailid.replace("@", "").replace(".", "");
 
-        const updatedTotalAmount =
-        state.TotalAmount + action.item.price * action.item.amount;
+var curdid;
 
-        const existingCartItemIndex=state.items.findIndex((item)=>item.id===action.item.id)
 
-        const existingCartItem = state.items[existingCartItemIndex];
-        let updatedItems;
-    
-        if (existingCartItem) {
-          const updatedItem = {
-            ...existingCartItem,
-            amount: existingCartItem.amount + action.item.amount,
-          };
-          updatedItems = [...state.items];
-          updatedItems[existingCartItemIndex] = updatedItem;
-        } else {
-            updatedItems = state.items.concat(action.item);
+const baseUrl = `https://crudcrud.com/api/e26eea51f22e47e290f36c96fff00889/${replacedEmailId}`;
+
+var arr=[];
+var amountis= localStorage.getItem("amount");
+axios.get(`${baseUrl}`).then((res) => {
+  for (var i = 0; i < res.data.length; i++) {
+    arr.push(res.data[i])
+    amountis+=res.data[i].price*res.data[i].amount
+  }
+}).catch((err)=>{
+  alert(err)
+  localStorage.removeItem("amount")
+})
+
+
+const defaultcart = {
+  items: arr,
+  TotalAmount: amountis,
+};
+
+ 
+
+const cartreducer = (state, action) => {
+  if (action.type === "ADD") {
+    const updatedTotalAmount =
+      state.TotalAmount + action.item.price * action.item.amount;
+    localStorage.setItem("amount",updatedTotalAmount)
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.item.id
+    );
+
+    const existingCartItem = state.items[existingCartItemIndex];
+    let updatedItems;
+
+    axios.get(`${baseUrl}`).then((res) => {
+      for (var i = 0; i < res.data.length; i++) {
+        if (res.data[i].id === existingCartItem.id) {
+          curdid = res.data[i]._id;
         }
-    
-      return {
-        items: updatedItems,
-        TotalAmount: updatedTotalAmount,
+      }
+    }).catch((err)=>{
+     console.log(err)
+    })
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount + action.item.amount,
       };
+
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+
+      axios
+        .put(`${baseUrl}/${curdid}`, updatedItem)
+        .then((res) => console.log(res))
+        .catch((err)=>{
+         console.log(err)
+        });
+    } else {
+      updatedItems = state.items.concat(action.item);
+      axios
+        .post(`${baseUrl}`, action.item)
+        .then((res) => console.log(res))
+        .catch((err)=>{
+         console.log(err)
+        });
     }
-    if(action.type==="REMOVE"){
 
-        const existingCartItemIndex = state.items.findIndex(
-            (item) => item.id === action.id
-          );
+    return {
+      items: updatedItems,
+      TotalAmount: updatedTotalAmount,
+    };
+  }
+  if (action.type === "REMOVE") {
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
 
-          const existingItem = state.items[existingCartItemIndex];
+    const existingItem = state.items[existingCartItemIndex];
 
-          const updatedTotalAmount = state.TotalAmount - existingItem.price;
-          let updatedItems;
-          if (existingItem.amount === 1) {
-            updatedItems = state.items.filter(item => item.id !== action.id);
-          } else {
-            const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
-            updatedItems = [...state.items];
-            updatedItems[existingCartItemIndex] = updatedItem;
-          }
-      
-          return {
-            items: updatedItems,
-            TotalAmount: updatedTotalAmount
-          };
+    const updatedTotalAmount = state.TotalAmount - existingItem.price;
+    
+    localStorage.setItem("amount",updatedTotalAmount)
+
+    let updatedItems;
+
+    axios.get(`${baseUrl}`).then((res) => {
+      for (var i = 0; i < res.data.length; i++) {
+        if (res.data[i].id === existingItem.id) {
+          curdid = res.data[i]._id;
+        }
+      }
+    });
+
+    if (existingItem.amount === 1) {
+      updatedItems = state.items.filter((item) => item.id !== action.id);
+      axios
+        .delete(`${baseUrl}/${curdid}`)
+        .then((res) => console.log(res))
+        .catch((err)=>{
+         console.log(err)
+        });
+    } else {
+      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+
+      axios
+        .put(`${baseUrl}/${curdid}`, updatedItem)
+        .then((res) => console.log(res))
+        .catch((err)=>{
+          localStorage.removeItem("amount")
+        });
     }
-    return defaultcart;
-}
 
-
+    return {
+      items: updatedItems,
+      TotalAmount: updatedTotalAmount,
+    };
+  }
+  localStorage.setItem("amount",defaultcart.TotalAmount)
+  return defaultcart;
+  
+};
 
 const CartProvider = (props) => {
+  const [cartstate, dispatchfunction] = useReducer(cartreducer, defaultcart);
 
-    const[cartstate,dispatchfunction]=useReducer(cartreducer,defaultcart)
+  const additemhandler = (item) => {
+    dispatchfunction({ type: "ADD", item: item });
+  };
 
-    const additemhandler=(item)=>{
-        dispatchfunction({type:"ADD",item:item}) 
-    }
-
-    const removeitemhandler=id=>{
-        dispatchfunction({type:"REMOVE",id:id})   
-    }
+  const removeitemhandler = (id) => {
+    dispatchfunction({ type: "REMOVE", id: id });
+  };
 
   const cartContext = {
     items: cartstate.items,
@@ -117,7 +195,11 @@ const CartProvider = (props) => {
     removeItem: removeitemhandler,
   };
 
-  return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={cartContext}>
+      {props.children}
+    </CartContext.Provider>
+  );
 };
 
 export default CartProvider;

@@ -7,7 +7,7 @@ import { productsArr } from "../Context/Cart-context/CartProvider";
 const Store = () => {
   return (
     <div className="row justify-content-evenly">
-
+ 
     {productsArr.map((item)=>{
       return <div 
       key={item.id}
@@ -20,7 +20,7 @@ const Store = () => {
         />
       </div>
     })}
-      
+   
     </div>
   );
 };

@@ -1,55 +1,25 @@
-import axios from "axios";
-import React, { useContext ,useEffect,useState} from "react";
+import React, {useContext} from "react";
 import Modal from "./Modal";
 import "./CartContent.css";
 import CartItem from "./CartItems";
 import CartContext from "../Context/Cart-context/Cart-Context";
 
+
+
+
 const CartContent = (props) => {
   
   
-
-
   const ctx = useContext(CartContext);
-
- 
 
   const cartItemRemoveHandler = (id) => {
     ctx.removeItem(id);
-  };
+  }
+
+
  
-  const useremailid = localStorage.getItem("emailid");
-  const replacedEmailId = useremailid
-    .replace("@", "")
-    .replace(".", "")
-    .replace("/", "");
-
-  let updatedTotalamount=0;
-
-  const[cartupdatedamount,setamount]=useState(updatedTotalamount);
-
-  const[cartitems,setcartitems]=useState([]);
-
+  const cartitem = ctx.items.map((item) => {
   
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios
-        .get(
-          `https://crudcrud.com/api/2710781aab9a431cbf133dfe6de42692/cart${replacedEmailId}`
-        );
-    
-      for (var i = 0; i <res.data.length; i++){
-        updatedTotalamount += res.data[i].amount * res.data[i].price;
-      }
-      setamount(updatedTotalamount);
-      setcartitems([...res.data]);
-    };
-    fetchData();
-  }, [updatedTotalamount]);
-   
-  
-  
-  const cartitem = cartitems.map((item) => {
     return (
       <React.Fragment  key={item.id}>
       <div className="cartitem">
@@ -88,11 +58,11 @@ const CartContent = (props) => {
             <h3 className="bordera">QUANTITY</h3>
           </div>
           {cartitem}
-          <h1 className="cart">Total Rs/{cartupdatedamount}</h1>
+          <h1 className="cart">Total Rs/{ctx.TotalAmount}</h1>
         </div>
       </Modal>
     </div>
   );
 };
 
-export default CartContent;
+export default  CartContent;
