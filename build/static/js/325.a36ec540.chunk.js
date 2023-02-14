@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_complete_guide=self.webpackChunkreact_complete_guide||[]).push([[325],{325:function(e,c,n){n.r(c),n.d(c,{default:function(){return r}});n(791);var i=n(184),r=function(e){return(0,i.jsx)("div",{className:"row",children:(0,i.jsx)("div",{className:"col-12  mt-4",children:(0,i.jsx)("div",{className:"brand",children:(0,i.jsx)("h2",{id:"heading",children:"The Generics"})})})})}}}]);
+//# sourceMappingURL=325.a36ec540.chunk.js.map

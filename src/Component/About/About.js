@@ -9,7 +9,9 @@ const About = (props) => {
         <div className="About">
           <h2 className="ABOUTHEAD">About</h2>
           <div className="conte">
-            <img className="band" src={bandimage} alt="band"/>
+           
+            <img className="band" src={bandimage} alt="band" />
+
             <p className="paragraph">
               Lorem ipsum carrots enhanced rebates. Excellent sayings of a man
               of sorrows, hates no prosecutors will unfold in the enduring of

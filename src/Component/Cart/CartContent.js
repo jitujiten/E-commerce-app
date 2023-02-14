@@ -1,15 +1,33 @@
-import React, {useContext} from "react";
+import axios from "axios";
+import React, {useContext,useState} from "react";
 import Modal from "./Modal";
 import "./CartContent.css";
 import CartItem from "./CartItems";
 import CartContext from "../Context/Cart-context/Cart-Context";
-
+import { baseUrl } from "../Context/Cart-context/CartProvider";
 
 
 
 const CartContent = (props) => {
   
-  
+
+ 
+
+const [stateamount,setamount]=useState(0)
+
+
+var amountis=0;
+
+ axios.get(`${baseUrl}`).then((res)=>{
+    for (var i = 0; i < res.data.length; i++) {
+      amountis+=res.data[i].amount*res.data[i].price
+       }
+       setamount(amountis)
+   }).catch((err)=>{
+     alert(err)
+   })
+
+
   const ctx = useContext(CartContext);
 
   const cartItemRemoveHandler = (id) => {
@@ -19,7 +37,7 @@ const CartContent = (props) => {
 
  
   const cartitem = ctx.items.map((item) => {
-  
+   
     return (
       <React.Fragment  key={item.id}>
       <div className="cartitem">
@@ -58,7 +76,7 @@ const CartContent = (props) => {
             <h3 className="bordera">QUANTITY</h3>
           </div>
           {cartitem}
-          <h1 className="cart">Total Rs/{ctx.TotalAmount}</h1>
+          <h1 className="cart">Total Rs/{stateamount}</h1>
         </div>
       </Modal>
     </div>

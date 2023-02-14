@@ -31,53 +31,47 @@ export const productsArr = [
     title: "Blue Color Pink Stone",
     id: "e4",
     price: 100,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
 ];
 
-
-var useremailid = "jsahu5425@gmail.com";
+let useremailid = "";
 
 if (localStorage.getItem("emailid") === null) {
-  useremailid = "jsahu5425@gmail.com";
+  useremailid = "";
 } else {
-  var emailid=localStorage.getItem("emailid");
-  useremailid = emailid;
+  useremailid = localStorage.getItem("emailid");
 }
-
+console.log(useremailid);
 const replacedEmailId = useremailid.replace("@", "").replace(".", "");
 
 var curdid;
 
+export const baseUrl = `https://crudcrud.com/api/71e083c9e8a04864a10f1b1f46ac19d4/${replacedEmailId}`;
 
-const baseUrl = `https://crudcrud.com/api/e26eea51f22e47e290f36c96fff00889/${replacedEmailId}`;
+var arr = [];
 
-var arr=[];
-var amountis= localStorage.getItem("amount");
-axios.get(`${baseUrl}`).then((res) => {
-  for (var i = 0; i < res.data.length; i++) {
-    arr.push(res.data[i])
-    amountis+=res.data[i].price*res.data[i].amount
-  }
-}).catch((err)=>{
-  alert(err)
-  localStorage.removeItem("amount")
-})
-
+axios
+  .get(`${baseUrl}`)
+  .then((res) => {
+    for (var i = 0; i < res.data.length; i++) {
+      arr.push(res.data[i]);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const defaultcart = {
   items: arr,
-  TotalAmount: amountis,
+  TotalAmount: 0,
 };
-
- 
 
 const cartreducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalAmount =
       state.TotalAmount + action.item.price * action.item.amount;
-    localStorage.setItem("amount",updatedTotalAmount)
+    localStorage.setItem("amount", updatedTotalAmount);
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
     );
@@ -85,15 +79,18 @@ const cartreducer = (state, action) => {
     const existingCartItem = state.items[existingCartItemIndex];
     let updatedItems;
 
-    axios.get(`${baseUrl}`).then((res) => {
-      for (var i = 0; i < res.data.length; i++) {
-        if (res.data[i].id === existingCartItem.id) {
-          curdid = res.data[i]._id;
+    axios
+      .get(`${baseUrl}`)
+      .then((res) => {
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].id === existingCartItem.id) {
+            curdid = res.data[i]._id;
+          }
         }
-      }
-    }).catch((err)=>{
-     console.log(err)
-    })
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     if (existingCartItem) {
       const updatedItem = {
@@ -107,16 +104,16 @@ const cartreducer = (state, action) => {
       axios
         .put(`${baseUrl}/${curdid}`, updatedItem)
         .then((res) => console.log(res))
-        .catch((err)=>{
-         console.log(err)
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       updatedItems = state.items.concat(action.item);
       axios
         .post(`${baseUrl}`, action.item)
         .then((res) => console.log(res))
-        .catch((err)=>{
-         console.log(err)
+        .catch((err) => {
+          console.log(err);
         });
     }
 
@@ -132,27 +129,33 @@ const cartreducer = (state, action) => {
 
     const existingItem = state.items[existingCartItemIndex];
 
-    const updatedTotalAmount = state.TotalAmount - existingItem.price;
-    
-    localStorage.setItem("amount",updatedTotalAmount)
+    const updatedTotalAmount =
+      state.TotalAmount - existingItem.price * existingItem.amount;
+
+    localStorage.setItem("amount", updatedTotalAmount);
 
     let updatedItems;
 
-    axios.get(`${baseUrl}`).then((res) => {
-      for (var i = 0; i < res.data.length; i++) {
-        if (res.data[i].id === existingItem.id) {
-          curdid = res.data[i]._id;
+    axios
+      .get(`${baseUrl}`)
+      .then((res) => {
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].id === existingItem.id) {
+            curdid = res.data[i]._id;
+          }
         }
-      }
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     if (existingItem.amount === 1) {
       updatedItems = state.items.filter((item) => item.id !== action.id);
       axios
         .delete(`${baseUrl}/${curdid}`)
         .then((res) => console.log(res))
-        .catch((err)=>{
-         console.log(err)
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
@@ -162,8 +165,8 @@ const cartreducer = (state, action) => {
       axios
         .put(`${baseUrl}/${curdid}`, updatedItem)
         .then((res) => console.log(res))
-        .catch((err)=>{
-          localStorage.removeItem("amount")
+        .catch((err) => {
+          localStorage.removeItem("amount");
         });
     }
 
@@ -172,9 +175,8 @@ const cartreducer = (state, action) => {
       TotalAmount: updatedTotalAmount,
     };
   }
-  localStorage.setItem("amount",defaultcart.TotalAmount)
+
   return defaultcart;
-  
 };
 
 const CartProvider = (props) => {
