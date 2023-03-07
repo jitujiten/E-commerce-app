@@ -23,7 +23,7 @@ const Brand = lazy(() => import("./Component/Brand/Brand"));
 
 const loading = (
   <div className="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
+    <div className="spinner-border" role="status">
     </div>
     <div>Loading.....</div>
   </div>
